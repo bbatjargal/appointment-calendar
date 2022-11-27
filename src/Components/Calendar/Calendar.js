@@ -1,12 +1,15 @@
-import CalendarView from './View/CalendarView'
+import CalendarView from './View/CalendarView';
+import { CalendarContextProvider } from './CalendarContext';
 
 function Calendar()
 {
     return (
         <>
-            <div className="calendarContainer">
-                <CalendarView />
-            </div>
+            <CalendarContextProvider>
+                <div className="calendarContainer">
+                    <CalendarView />
+                </div>
+            </CalendarContextProvider>
         </>
     );
 }

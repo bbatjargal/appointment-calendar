@@ -1,4 +1,4 @@
-import {useRef} from 'react';
+import { useRef, useState } from 'react';
 import { Box, Grid, Stack } from '@mui/material';
 import { nanoid } from 'nanoid';
 
@@ -7,12 +7,13 @@ import ViewLeft from './../base/ViewLeft';
 
 function ViewWeekly()
 {
-    const days = useRef(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"])
-
+    const currentDatetime = (new Date()).toString();
+    const [selectedDatetime, setSelectedDatetime] = useState(currentDatetime);
+    const days = useRef(["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"])
 
     return (
         <>
-            <div>hello from week view.</div>
+            <div>{ selectedDatetime }</div>
             
             <Stack>
                 <Grid container  className="calendarViewContainer">
@@ -44,27 +45,16 @@ function ViewWeekly()
                         </Grid>
                         <Grid item xs>
                             <Grid container spacing={0} padding={0} columns={7} >
-                                <Grid item xs={1}>
-                                    <DayColumnHourly></DayColumnHourly>
-                                </Grid>
-                                <Grid item xs={1}>
-                                    <DayColumnHourly></DayColumnHourly>
-                                </Grid>
-                                <Grid item xs={1}>
-                                    <DayColumnHourly></DayColumnHourly>
-                                </Grid>
-                                <Grid item xs={1}>
-                                    <DayColumnHourly></DayColumnHourly>
-                                </Grid>
-                                <Grid item xs={1}>
-                                    <DayColumnHourly></DayColumnHourly>
-                                </Grid>
-                                <Grid item xs={1}>
-                                    <DayColumnHourly></DayColumnHourly>
-                                </Grid>
-                                <Grid item xs={1}>
-                                    <DayColumnHourly></DayColumnHourly>
-                                </Grid>
+                                {
+                                    days.current.map((day, i) => {
+                                        return (
+                                            <Grid item xs={1} key={ nanoid() }>
+                                                <DayColumnHourly dayIndex={i} ></DayColumnHourly>
+                                            </Grid>
+                                        );
+                                    })
+                                    
+                                }
                             </Grid>  
                         </Grid>
                     </Grid>  

@@ -4,6 +4,9 @@ npm install --save nanoid
 npm install
 npm start
 
+npm install gh-pages --save-dev
+npm run deploy
+
 npm fund
 npm audit
 npm audit fix

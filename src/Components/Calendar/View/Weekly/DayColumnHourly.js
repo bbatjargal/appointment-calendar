@@ -1,21 +1,20 @@
-import { useRef } from 'react';
 import CellInHour from "./CellInHour";
 
-function DayColumnHourly()
+function DayColumnHourly({dayIndex = -1})
 {
     return (
         <>
-            <CreateHours />
+            <CreateHours dayIndex={ dayIndex } />
         </>
     );
 };
 
-function CreateHours()
+function CreateHours({ dayIndex = -1 })
 {
     var elementsHour = [];
     for(var i = 0; i < 24; i++)
     {
-        elementsHour.push(<CellInHour key={i} offset={i} />);
+        elementsHour.push(<CellInHour key={i} offset={i} dayIndex={ dayIndex } />);
     }
     return elementsHour;
 }
