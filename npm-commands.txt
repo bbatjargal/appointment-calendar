@@ -1,0 +1,10 @@
+npx create-react-app appointment-calendar
+npm install --save @mui/material @emotion/react @emotion/styled @mui/icons-material
+npm install --save nanoid
+npm install
+npm start
+
+npm fund
+npm audit
+npm audit fix
+npm audit fix --force
