@@ -4,6 +4,7 @@ import { DialogTitle, DialogActions, DialogContent } from '@mui/material';
 import { Dialog, Button, TextField } from '@mui/material';
 
 import { CalendarContext } from '../../CalendarContext';
+import Utils from './../../Utils';
 /*
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -34,7 +35,7 @@ function CellInMinute({ dayIndex=-1, part = 'first', hour=0, period='' })
 
     const handleClickOnCell = ({ dayIndex, part, hour, period, currentDatetime }) => {
         const now = new Date(currentDatetime);
-        const selected  = addDays(currentDatetime, dayIndex - now.getDay()).toDateString();
+        const selected  = Utils.addDays(currentDatetime, dayIndex - now.getDay()).toDateString();
         setSelectedDatetime(selected);
         setOpen(true);
         //console.log(dayIndex, part, hour, period);
@@ -105,10 +106,5 @@ function clickOnCell({ dayIndex, part, hour, period })
 {
 }
 
-function addDays(date, days) {
-    var result = new Date(date);
-    result.setDate(result.getDate() + days);
-    return result;
-  }
 
 export default CellInMinute;
