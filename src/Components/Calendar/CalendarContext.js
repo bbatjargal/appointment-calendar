@@ -1,8 +1,6 @@
-import { createContext, useState, useEffect, useRef, useCallback } from 'react';
+import { createContext, useState, useEffect, useCallback } from 'react';
 
 import Utils from './Utils';
-
-
 
 export const CalendarContext = createContext({
     currentDatetime: null,
@@ -21,15 +19,12 @@ export const CalendarContext = createContext({
     decrementOffset: null,
 });
 
-
-export function CalendarContextProvider({ children }) {
-    
+export function CalendarContextProvider({ children }) {    
     const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const daysOfWeekAbbr = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const fullnameOfMonths = [ "January", "February", "March", "April", "May", "June",
                                "July", "August", "September", "October", "November", "December" ];
     const nameOfMonthsAbbr = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
-
 
     const now = new Date();
     const dtStartOfRange = Utils.addDays(now, 0 - now.getDay()).toString();
@@ -40,11 +35,9 @@ export function CalendarContextProvider({ children }) {
     const [startDatetime, setStartDatetime] = useState(dtStartOfRange);
     const [endDatetime, setEndDatetime] = useState(dtEndOfRange);
 
-    const [viewType, setViewType] = useState('weekly');
     const [offset, setOffset] = useState(0);
     const [offsetUnit, setOffsetUnit] = useState(7);
-
-    // const toggleVisible = (value) => { setOffset(value) };
+    const [viewType, setViewType] = useState('weekly');
 
     const setCurrentOffset = (value) => {
         setOffset(value);
@@ -68,17 +61,11 @@ export function CalendarContextProvider({ children }) {
     useEffect(() => {
         updateDateRange();
     }, [updateDateRange]);
-
-
     
     //const dtSelected  = Utils.addDays(dtActive, dayIndex - now.getDay());
-
-
     //const setStartOfRange = (value) => {
     //    setStartDatetime();
-    //};
-    
-    
+    //}; 
 
     /*
     const currentDatetime = {
