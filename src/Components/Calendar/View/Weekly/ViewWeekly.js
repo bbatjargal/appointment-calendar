@@ -39,7 +39,6 @@ function ViewWeekly()
         <>
             <div>Today: {now.toDateString()}</div>
             <div>{ startDatetime.toDateString() } - { endDatetime.toDateString() }</div>
-            <div>{ calendarContext.offset } - { endDatetime.toDateString() }</div>
             
             <Stack>
                 <Grid container>
