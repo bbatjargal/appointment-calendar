@@ -37,9 +37,9 @@ function ViewWeekly()
 
     return (
         <>
-            <div>Today: {now.toDateString()}</div>
+            <div><b>Today: {now.toDateString()}</b></div>
             <div>{ startDatetime.toDateString() } - { endDatetime.toDateString() }</div>
-            
+            <br />
             <Stack>
                 <Grid container>
                     <Grid item xs>
@@ -55,6 +55,7 @@ function ViewWeekly()
                         </Button>
                     </Grid>
                 </Grid>
+                <br />
                 <Grid container  className="calendarViewContainer">
                     <Grid container className="calendarViewTop">
                     
