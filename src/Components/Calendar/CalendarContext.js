@@ -16,6 +16,9 @@ export const CalendarContext = createContext({
     daysOfWeekAbbr: null,
     fullnameOfMonths: null,
     nameOfMonthsAbbr: null,
+    setOffset: null,
+    incrementOffset: null,
+    decrementOffset: null,
 });
 
 
@@ -64,7 +67,7 @@ export function CalendarContextProvider({ children }) {
 
     useEffect(() => {
         updateDateRange();
-    }, [offset, updateDateRange]);
+    }, [updateDateRange]);
 
 
     

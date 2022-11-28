@@ -1,7 +1,11 @@
+import { nanoid } from 'nanoid';
+
 import { useState, useContext } from 'react';
 import { Box, ThemeProvider, createTheme } from '@mui/system';
 import { DialogTitle, DialogActions, DialogContent } from '@mui/material';
-import { Dialog, Button, TextField } from '@mui/material';
+import { Dialog, Button, TextField, Stack } from '@mui/material';
+import Paper from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
 
 import { CalendarContext } from '../../CalendarContext';
 import Utils from './../../Utils';
@@ -26,12 +30,8 @@ function CellInMinute({ dayIndex=-1, part = 'first', hour=0, period='' })
     const calendarContext = useContext(CalendarContext);
     const [count, setCount] = useState(0);
 
-    //setSelectedDatetime(addDays(currentDatetime, now.getDay() - dayIndex).toString());
-    // setSelectedDatetime("WWWW");
+    var appointments = ["item 1", "item 2"];
 
-    //console.log(calendarContext.currentDatetime, "sssssssssss");
-    // console.log(calendarContext.daysOfWeek[dayIndex], "---sssssssss");
-    //console.log(calendarContext.currentDatetime.dayOfWeek, "---sssssssss");
 
     const handleClickOnCell = ({ dayIndex, part, hour, period, currentDatetime }) => {
         const now = new Date(currentDatetime);
@@ -62,12 +62,22 @@ function CellInMinute({ dayIndex=-1, part = 'first', hour=0, period='' })
     { 
         listOfClasses.push("cellBorderTopDashed");
     }
-    
+
     return (
         <>
             <ThemeProvider theme={themeLight}>
                 <Box className={ listOfClasses.join(" ") } 
-                    onClick={ () => handleClickOnCell(cellPayload) }  />
+                    onClick={ () => handleClickOnCell(cellPayload) }  >
+                        <Stack direction="row" spacing={0}>
+                            {
+                                appointments.map((item, i) => {                                    
+                                    return (
+                                        <div key={nanoid()} className="calendarItem" style={{ width: "100%" }}>{ item }</div>
+                                    );
+                                })
+                            }
+                        </Stack>
+                    </Box>
             </ThemeProvider>
             
             <Dialog open={open} onClose={handleClose}>
