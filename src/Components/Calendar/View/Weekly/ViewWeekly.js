@@ -11,7 +11,6 @@ import Utils from './../../Utils';
 
 function handleClickOnToday(setOffset)
 {
-    console.log('clicked on today.');  
     setOffset(0); 
 }
 
@@ -58,7 +57,6 @@ function ViewWeekly()
                 <br />
                 <Grid container  className="calendarViewContainer">
                     <Grid container className="calendarViewTop">
-                    
                         <Grid item sx={{ width: '60px', }}>
                             <Box className="cellBorderLeft cellBorderBottom calendarHeaderCell" />
                         </Grid>
@@ -68,17 +66,18 @@ function ViewWeekly()
                                     calendarContext.daysOfWeekAbbr.map( (day, dayIndex) => 
                                     {                                         
                                         const dtSelected  = Utils.addDays(dtActived, dayIndex - now.getDay());
+                                        const isToday =  now.toDateString() ===dtSelected.toDateString();
                                         const dtText = calendarContext.nameOfMonthsAbbr[dtSelected.getMonth()] + " " + dtSelected.getDate();
                                         return ( 
                                             <Grid item xs={1} key={ nanoid() }>
-                                                <Box className="cellBorderLeft cellBorderBottom calendarHeaderCell" >{ dtText }, { day }</Box>
+                                                <Box className={ `cellBorderLeft cellBorderBottom calendarHeaderCell ${ isToday && "today" }`}>
+                                                { dtText }, { day }</Box>
                                             </Grid>
-                                        );                                          
+                                        );
                                     })
                                 }
                             </Grid>
                         </Grid>
-                    
                     </Grid>
                     <Grid container className="calendarViewBody">
                         <Grid item sx={{ width: '60px', }}>

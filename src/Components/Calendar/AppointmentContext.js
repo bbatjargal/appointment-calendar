@@ -28,7 +28,22 @@ export function AppointmentContextProvider({ children }) {
 
         setAppointments({...appointments});
     };
+
+    const updateAppointment = (item) => {
+        
+        const currentItem = appointments[item.groupKey].find(x => x.key === item.key);
+        currentItem.title = item.title;
+        currentItem.desc = item.desc;
+        setAppointments({...appointments});
+    };
     
+    const deleteAppointment = (item) => {
+        const index = appointments[item.groupKey].indexOf(item);
+        appointments[item.groupKey].splice(index, 1);
+        setAppointments({...appointments});
+    };
+
+
     useEffect(() => {
         localStorage.setItem('appointments', JSON.stringify(appointments));
     }, [appointments]);
@@ -37,7 +52,9 @@ export function AppointmentContextProvider({ children }) {
     return (
         <AppointmentContext.Provider value={{
             items: appointments,
-            addAppointment: addAppointment
+            addAppointment: addAppointment,
+            updateAppointment: updateAppointment,
+            deleteAppointment: deleteAppointment,
         }}>
             { children }
         </AppointmentContext.Provider>

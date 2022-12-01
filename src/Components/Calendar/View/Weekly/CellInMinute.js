@@ -8,13 +8,7 @@ import { Dialog, Button, TextField, Stack } from '@mui/material';
 import { CalendarContext } from '../../CalendarContext';
 import { AppointmentContext } from '../../AppointmentContext';
 import Utils from './../../Utils';
-/*
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-*/
+
 const themeLight = createTheme({
     palette: {
         layout: {
@@ -30,7 +24,7 @@ function CellInMinute({ dayIndex=-1, part = 'first', hour=0, period='' })
 
     const activatedDatime = new Date(calendarContext.activatedDatetime);
     const dtSelected = Utils.addDays(calendarContext.activatedDatetime, dayIndex - activatedDatime.getDay());
-    // const groupKey = "".concat(dtSelected.getFullYear(), dtSelected.getMonth() + 1, dtSelected.getDate(), dtSelected.getHours(), part === 'first' ? 1 : 2);
+    
     const groupKey = Utils.createGroupKey(dtSelected.getFullYear(), 
                                           dtSelected.getMonth() + 1, 
                                           dtSelected.getDate(), 
@@ -43,15 +37,11 @@ function CellInMinute({ dayIndex=-1, part = 'first', hour=0, period='' })
     const [eventTitle, setEventTitle] = useState('');
     const [eventDescription, setEventDescription] = useState('');
     
-
     const handleClickOnCell = ({ dayIndex, part, hour, period }) => {
         const dt  = Utils.addDays(activatedDatime, dayIndex - activatedDatime.getDay());
         const dtSelected = new Date(dt.getFullYear(), dt.getMonth() + 1, dt.getDate(), hour, dt.getMinutes());
 
-
         setSelectedDatetime(dtSelected.toDateString());
-        console.log(dtSelected);
-        console.log(groupKey);
         setOpen(true);
     };
 
@@ -60,18 +50,49 @@ function CellInMinute({ dayIndex=-1, part = 'first', hour=0, period='' })
     };
 
     const handleClickOnSave = () => {
-        const txtEventKey = nanoid();
 
-        setEventKey(txtEventKey);
+        if(!eventKey) 
+        {
+            // null or empty or undefined
+            const txtEventKey = nanoid();
+            setEventKey(txtEventKey);
+            appointmentContext.addAppointment({
+                key: txtEventKey,
+                groupKey: eventGroupKey,
+                title: eventTitle,
+                desc: eventDescription,
+                datetime: selectedDatetime,
+            });            
+        }
+        else
+        {
+            const item = {
+                key: eventKey,
+                groupKey: eventGroupKey,
+                title: eventTitle,
+                desc: eventDescription,
+            };
+            appointmentContext.updateAppointment(item);  
 
-        appointmentContext.addAppointment({
-            key: txtEventKey,
-            groupKey: eventGroupKey,
-            title: eventTitle,
-            desc: eventDescription,
-            datetime: selectedDatetime,
-        });
+        }
         setOpen(false);
+    };
+
+    const handleClickOnDelete = (groupKey, eventKey) => {        
+        const currentItem = appointmentContext.items[groupKey].find(x => x.key === eventKey);
+        appointmentContext.deleteAppointment(currentItem);
+        setOpen(false);
+    };
+
+    const handleClickOnCalendarItem = (groupKey, eventKey) => {
+
+        const currentItem = appointmentContext.items[groupKey].find(x => x.key === eventKey);
+        
+        setEventKey(currentItem.key);
+        setEventGroupKey(currentItem.groupKey);
+        setSelectedDatetime(currentItem.datetime);
+        setEventTitle(currentItem.title);
+        setEventDescription(currentItem.desc);
     };
 
     var cellPayload = {
@@ -104,7 +125,13 @@ function CellInMinute({ dayIndex=-1, part = 'first', hour=0, period='' })
                             {                                 
                                 groupKeyExits && appointmentContext.items[eventGroupKey].map((item, i) => {                                    
                                     return (
-                                        <div key={nanoid()} className="calendarItem" style={{ width: "100%" }}>{ item.title } </div>
+                                        <div key={ nanoid() } 
+                                            className="calendarItem" 
+                                            style={ { width: "100%" } }
+                                            onClick={ () => handleClickOnCalendarItem(item.groupKey, item.key) }
+                                            >
+                                            { item.title } 
+                                        </div>
                                     );
                                 })
                             }
@@ -143,6 +170,10 @@ function CellInMinute({ dayIndex=-1, part = 'first', hour=0, period='' })
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
+                    { 
+                        !!eventKey &&
+                        <Button onClick={() => handleClickOnDelete(eventGroupKey, eventKey) }>Delete</Button>
+                    }
                     <Button type="submit" onClick={handleClickOnSave}>Save</Button>
                 </DialogActions>
             </Dialog>
