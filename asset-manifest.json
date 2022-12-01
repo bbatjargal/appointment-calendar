@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/appointment-calendar/static/css/main.82e62a27.css",
-    "main.js": "/appointment-calendar/static/js/main.450ccc28.js",
+    "main.css": "/appointment-calendar/static/css/main.a0f20cdc.css",
+    "main.js": "/appointment-calendar/static/js/main.2365b192.js",
     "static/js/787.814cbd30.chunk.js": "/appointment-calendar/static/js/787.814cbd30.chunk.js",
     "static/media/logo.svg": "/appointment-calendar/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/appointment-calendar/index.html",
-    "main.82e62a27.css.map": "/appointment-calendar/static/css/main.82e62a27.css.map",
-    "main.450ccc28.js.map": "/appointment-calendar/static/js/main.450ccc28.js.map",
+    "main.a0f20cdc.css.map": "/appointment-calendar/static/css/main.a0f20cdc.css.map",
+    "main.2365b192.js.map": "/appointment-calendar/static/js/main.2365b192.js.map",
     "787.814cbd30.chunk.js.map": "/appointment-calendar/static/js/787.814cbd30.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.82e62a27.css",
-    "static/js/main.450ccc28.js"
+    "static/css/main.a0f20cdc.css",
+    "static/js/main.2365b192.js"
   ]
 }
